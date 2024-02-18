@@ -1,9 +1,10 @@
 import { React, useState } from "react";
-import { Modal } from "../components/ui/Modal";
+import { Modal } from "./ui/Modal";
 import { getIcon } from "../lib/utils";
 import { useForm } from "react-hook-form";
+import { format } from "date-fns";
 
-export const AddModal = ({
+export const UpsertModal = ({
   setIsOpen,
   isOpen,
   title,
@@ -12,10 +13,16 @@ export const AddModal = ({
   onSubmit,
   rating,
   setRating,
+  editExpense,
 }) => {
   const handleSliderChange = (event) => {
     setRating(event.target.value, 10);
   };
+
+  // console.log(isOpen.expense.title);
+  // console.log(isOpen.expense.amount);
+  // console.log(isOpen.expense.rating);
+  // console.log(isOpen.expense.date);
   return (
     <Modal setIsOpen={setIsOpen} isOpen={isOpen} title={title}>
       <form
@@ -30,7 +37,7 @@ export const AddModal = ({
             name="title"
             type="text"
             className="w-full h-8 pl-2 rounded-lg"
-            placeholder="Title"
+            defaultValue={isOpen.expense?.title || ""}
             {...register("title", { required: true })}
           />
         </div>
@@ -42,7 +49,7 @@ export const AddModal = ({
             name="amount"
             type="number"
             className="w-full h-8 pl-2 rounded-lg"
-            placeholder="Amount"
+            defaultValue={isOpen.expense?.amount || 0}
             {...register("amount", { required: true })}
           />
         </div>
@@ -54,7 +61,10 @@ export const AddModal = ({
             name="date"
             type="date"
             className="w-full h-8 pl-2 rounded-lg"
-            placeholder="Date"
+            defaultValue={
+              isOpen.expense?.date || format(new Date(), "MM/dd/yyyy")
+            }
+            // value={Date.now}
             {...register("date", { required: true })}
           />
         </div>
@@ -63,6 +73,7 @@ export const AddModal = ({
             <input
               type="range"
               className="w-full accent-zinc-800"
+              // value={isOpen.expense?.rating || rating}
               min="0"
               max="100"
               step="1"
