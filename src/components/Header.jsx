@@ -1,29 +1,28 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 export const Header = () => {
   const location = useLocation().pathname;
-  console.log(location);
 
-  const activeLink = ["text-orange-500"];
   return (
     <header>
-      <nav className="pt-3 pr-5 text-lg text-zinc-500">
-        <ul className="flex justify-start max-w-screen-xl p-5 ml-5 text-white gap-x-12">
-          <li>
-            <Link to="/" className={location === "/" ? activeLink : null}>
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/expenses"
-              className={location === "/expenses" ? activeLink : null}
-            >
-              Expenses
-            </Link>
-          </li>
-        </ul>
+      <nav className='text-white bg-gray-800 shadow-lg'>
+        <div className='container flex items-center justify-between p-4 mx-auto'>
+          <ul className='flex space-x-4'>
+            <li>
+              <Link to='/' className={`text-xl font-medium ${location === '/' ? 'underline' : 'no-underline'}`}>Home</Link>
+            </li>
+            <li>
+              <Link to='/expenses' className={`text-xl font-medium ${location === '/expenses' ? 'underline' : 'no-underline'}`}>Expenses</Link>
+            </li>
+            <li>
+              <Link to='/incomes' className={`text-xl font-medium ${location === '/incomes' ? 'underline' : 'no-underline'}`}>Incomes</Link>
+            </li>
+          </ul>
+          <Link to='/' className="text-2xl font-bold no-underline">
+            BuyOrDie
+          </Link>
+        </div>
       </nav>
     </header>
   );
